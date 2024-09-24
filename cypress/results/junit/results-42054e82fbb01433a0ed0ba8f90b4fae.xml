@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="Mocha Tests" time="40.764" tests="5" failures="1">
+  <testsuite name="Root Suite" timestamp="2024-09-24T11:06:23" tests="0" file="cypress\e2e\firstTest.spec.js" time="0.000" failures="0">
+  </testsuite>
+  <testsuite name="Test With Backend" timestamp="2024-09-24T11:06:23" tests="5" time="40.750" failures="1">
+    <testcase name="Test With Backend first" time="4.717" classname="first">
+    </testcase>
+    <testcase name="Test With Backend Verify correct request and response" time="6.062" classname="Verify correct request and response">
+      <failure message="expected 422 to equal 201" type="AssertionError"><![CDATA[AssertionError: expected 422 to equal 201
+    at Context.eval (webpack://realworld-app/./cypress/e2e/firstTest.spec.js:27:41)
+
+      + expected - actual
+
+      -422
+      +201
+      ]]></failure>
+    </testcase>
+    <testcase name="Test With Backend verify popular tags are displayed" time="3.453" classname="verify popular tags are displayed">
+    </testcase>
+    <testcase name="Test With Backend verify global feeds likes count" time="3.784" classname="verify global feeds likes count">
+    </testcase>
+    <testcase name="Test With Backend delete a new article in a new feed" time="7.611" classname="delete a new article in a new feed">
+    </testcase>
+  </testsuite>
+</testsuites>

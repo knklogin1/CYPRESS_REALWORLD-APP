@@ -1,0 +1,187 @@
+{
+  "stats": {
+    "suites": 1,
+    "tests": 5,
+    "passes": 4,
+    "pending": 0,
+    "failures": 1,
+    "start": "2024-09-23T11:54:32.717Z",
+    "end": "2024-09-23T11:55:11.224Z",
+    "duration": 38507,
+    "testsRegistered": 5,
+    "passPercent": 80,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "5033ccf2-f429-4776-826c-ca61565a489e",
+      "title": "",
+      "fullFile": "cypress\\e2e\\firstTest.spec.js",
+      "file": "cypress\\e2e\\firstTest.spec.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "14eed260-d0d5-459d-9536-24f175eea193",
+          "title": "Test With Backend",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "first",
+              "fullTitle": "Test With Backend first",
+              "timedOut": null,
+              "duration": 3525,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.log('Yaay we have logged in');",
+              "err": {},
+              "uuid": "04c765f8-eba5-47e4-8b31-ca9fac560678",
+              "parentUUID": "14eed260-d0d5-459d-9536-24f175eea193",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Verify correct request and response",
+              "fullTitle": "Test With Backend Verify correct request and response",
+              "timedOut": null,
+              "duration": 7192,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles').as('postArticles'); // need to add intercept - check this syntax\ncy.contains(' New Article ').click();\ncy.get('[formcontrolname=\"title\"]').type('Kedar is creating the article-TEST');\ncy.get('[formcontrolname=\"description\"]').type('This is a description');\ncy.get('[formcontrolname=\"body\"]').type('This is a body of article');\ncy.contains(' Publish Article ').click();\ncy.wait('@postArticles');\ncy.get('@postArticles').then(xhr => {\n  // instead of this code you can also write one line code as below\n  //cy.wait('@postArticles').then(xhr => {\n  console.log(xhr);\n  expect(xhr.response.statusCode).to.equal(201);\n  expect(xhr.request.body.article.body).to.equal('This is a body of article');\n  expect(xhr.response.body.article.description).to.equal('This is a description');\n});",
+              "err": {
+                "message": "AssertionError: expected 422 to equal 201",
+                "estack": "AssertionError: expected 422 to equal 201\n    at Context.eval (webpack://realworld-app/./cypress/e2e/firstTest.spec.js:27:41)",
+                "diff": "- 422\n+ 201\n"
+              },
+              "uuid": "e190bd27-e97c-40ff-9b6a-8fe89f4e0a11",
+              "parentUUID": "14eed260-d0d5-459d-9536-24f175eea193",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "verify popular tags are displayed",
+              "fullTitle": "Test With Backend verify popular tags are displayed",
+              "timedOut": null,
+              "duration": 5125,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.get('.tag-list').should('contain', 'Cypress').and('contain', 'automation').and('contain', 'testing');",
+              "err": {},
+              "uuid": "9055b578-199b-433b-bd97-6d34fd853237",
+              "parentUUID": "14eed260-d0d5-459d-9536-24f175eea193",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "verify global feeds likes count",
+              "fullTitle": "Test With Backend verify global feeds likes count",
+              "timedOut": null,
+              "duration": 2745,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles/feed*', {\n  \"articles\": [],\n  \"articlesCount\": 0\n});\ncy.intercept('GET', 'https://conduit-api.bondaracademy.com/api/articles*', {\n  fixture: 'articles.json'\n});\ncy.contains(' Global Feed ').click();\ncy.get('app-article-list button').then(heartList => {\n  expect(heartList[0]).to.contain('1');\n  expect(heartList[1]).to.contain('5');\n});\n// to use article.json file use in cypress - use the following command\ncy.fixture('articles').then(file => {\n  const articleLink = file.articles[1].slug;\n  file.articles[1].favoritesCount = 6;\n  cy.intercept('POST', 'https://conduit-api.bondaracademy.com/api/articles/' + articleLink + '/favorite', file);\n});\ncy.get('app-article-list button').eq(1).click().should('contain', '6');",
+              "err": {},
+              "uuid": "d4a2fc5e-f8ab-47a3-987b-74abefa6d224",
+              "parentUUID": "14eed260-d0d5-459d-9536-24f175eea193",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "delete a new article in a new feed",
+              "fullTitle": "Test With Backend delete a new article in a new feed",
+              "timedOut": null,
+              "duration": 8134,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "const userCredentials = {\n  \"user\": {\n    \"email\": \"kedar@mailinator.com\",\n    \"password\": \"admin123\"\n  }\n};\nconst bodyRequest = {\n  \"article\": {\n    //\"slug\": \"The-article-for-API-testing-8207\",\n    \"title\": \"The article for API testing\",\n    \"description\": \"backend testing\",\n    \"body\": \"The backend started here\",\n    \"tagList\": []\n  }\n};\ncy.request('POST', Cypress.env('apiURL') + 'api/users/login', userCredentials) // performing login activity using API\n.its('body').then(body => {\n  const token = body.user.token;\n  cy.request({\n    url: Cypress.env('apiURL') + 'api/articles/',\n    // creating new article using the generated token\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'POST',\n    // https://conduit-api.bondaracademy.com/api/articles/\n    body: bodyRequest\n  }).then(response => {\n    expect(response.status).to.equal(201);\n  });\n  cy.contains('Global Feed').click(); // deleting the first token\n  cy.get('.article-preview').first().contains(bodyRequest.article.title).click();\n  cy.wait(500);\n  cy.get('.article-actions').contains(' Delete Article ').click();\n  cy.request({\n    // cy.request will create the JSON object like url,header and method etc.\n    url: Cypress.env('apiURL') + 'api/articles?limit=10&offset=0',\n    // this is the API for global feed page\n    headers: {\n      'Authorization': 'Token ' + token\n    },\n    method: 'GET'\n  }).its('body').then(body => {\n    expect(body.articles[0].title).not.to.equal('The article for API testing'); // here why article's' are used. in body there is article onle present\n  });\n});",
+              "err": {},
+              "uuid": "616e1814-2e10-4d05-a83c-4b9a5de5485c",
+              "parentUUID": "14eed260-d0d5-459d-9536-24f175eea193",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "04c765f8-eba5-47e4-8b31-ca9fac560678",
+            "9055b578-199b-433b-bd97-6d34fd853237",
+            "d4a2fc5e-f8ab-47a3-987b-74abefa6d224",
+            "616e1814-2e10-4d05-a83c-4b9a5de5485c"
+          ],
+          "failures": [
+            "e190bd27-e97c-40ff-9b6a-8fe89f4e0a11"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 26721,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "id": "default",
+        "reportDir": "cypress/results/mochawesome",
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
